@@ -13,6 +13,12 @@ int main()
 
     int x = dlatl % f;
 
+    if (x == 0)
+    {
+        cout << "00";
+        return 0;
+    }
+
     int dlatl2 = (f - x) % 100;
 
     if (dlatl2 >= 0 && dlatl2 <= 9)
