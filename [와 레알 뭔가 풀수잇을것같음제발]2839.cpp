@@ -17,13 +17,14 @@ int main()
         cout << n / 3;
     else
     {
-        cnt += (n / 8) * 2 - 2;
+        cnt += (n / 8) * 2 - 4;
+        cout << "[cnt] :" << cnt << '\n';
         int a = n % 8;
         if (a == 1 || a == 3 || a == 5 || a == 7)
             cout << cnt + 3;
         else if (a == 2)
-            cout << cnt + 2;
-        else if (a == 6)
+            cout << cnt + (n / 5);
+        else if (a == 6 || a == 4)
             cout << cnt + 4;
     }
 }
