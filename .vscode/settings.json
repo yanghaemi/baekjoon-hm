@@ -47,5 +47,9 @@
     "xutility": "cpp",
     "xtree": "cpp",
     "queue": "cpp"
-  }
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "python.formatting.provider": "none"
 }

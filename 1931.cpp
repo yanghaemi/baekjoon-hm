@@ -1,44 +1,72 @@
 #include <iostream>
+#include <stdio.h>
 #include <vector>
-#include <math.h>
+#include <algorithm>
 using namespace std;
+
+bool compare(const pair<int, int> &v1, const pair<int, int> &v2)
+{
+    if (v1.second == v2.second)
+    {
+        return v1.first < v2.first; // 종료시간이 같으면 시작시간이 이른 쪽을 앞으로
+    }
+    return v1.second < v2.second; // 종료시간이 이른 시간 순대로
+}
 
 int main()
 {
-    int n = 0;             // 회의 개수
-    int most_late = 0;     // 제일 늦은 시작시간
-    int lastest = 9999999; // 제일 이른 종료시간
-    int cnt = 0;           // 회의 개수
-    int min = 99999999;    // finish[i] - start[i] 중 가장 작은 자연수
-    int idx = 0;           // 인덱스
+    int n = 0;
+    int _start = 99999999;
+    int _finish = 0;
+    int cnt = 1;
+    int idx = 0;
     cin >> n;
 
-    vector<int> start(n), finish(n); // 회의 시작 시간, 종료 시간
+    if (n == 0)
+    {
+        cout << "0";
+        return 0;
+    }
+
+    vector<pair<int, int>> v(n); // 회의 시작, 종료 시간 입력 받기
 
     for (int i = 0; i < n; i++)
     {
-        cin >> start[i] >> finish[i];
-        if (most_late < start[i])
-            most_late = start[i]; // 가장 늦은 시작시간 구하기
-        if (lastest < finish[i])
-            lastest = finish[i];
+        cin >> v[i].first >> v[i].second;
     }
 
-    while (lastest > most_late) // most_late가 0 아래로 가기 전까지
+    int min = 999;
+
+    sort(v.begin(), v.end(), compare); // 정렬
+
+    int flag = 0;
+
+    for (;;)
     {
-        cnt++; // while문이 돌아갔단 소리는 회의 시작 시간이 0 아래로 안 갔단 소리니까 cnt++
-        for (int i = 0; i < n; i++)
+        flag = 0;
+
+        for (int i = idx + 1; i < n; i++)
         {
-            if (most_late >= finish[i] && finish[i] - start[i] < min && finish[i] > finish[idx])
+
+            if (v[i].first == v[idx].second)
             {
-                min = finish[i] - start[i];
                 idx = i;
-            } // min, index 구하기
+                cnt++;
+                // cout << "(" << v[idx].first << " " << v[idx].second << ")" << '\n';
+                flag = 1;
+                break;
+            }
         }
-        cout << most_late << '\n';
-
-        most_late = start[idx];
+        if (flag == 0)
+        {
+            v[idx].second++;
+        }
+        if (v[idx].second >= v[n - 1].second)
+        {
+            break;
+        }
     }
-
     cout << cnt;
+
+    return 0;
 }
