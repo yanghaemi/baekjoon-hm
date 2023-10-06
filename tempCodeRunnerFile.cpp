@@ -1,5 +1,4 @@
-if (v[x - 1][y] == -1 && v[x][y - 1] == -1 && v[x + 1][y] == -1 && v[x][y + 1] == -1)
-    // {
-    //     flag = 1;
-    //     return;
-    // }
+while (!q.empty())
+    //     q.pop();
+    // while (!next_q.empty())
+    //     next_q.pop();
