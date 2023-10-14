@@ -46,7 +46,8 @@
     "xtr1common": "cpp",
     "xutility": "cpp",
     "xtree": "cpp",
-    "queue": "cpp"
+    "queue": "cpp",
+    "span": "cpp"
   },
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
