@@ -6,35 +6,36 @@ int res = 0;
 int n;
 int flag = 0;
 
-int Max(int a, int b)
+void DP(vector<int> &v)
 {
-    if (a < b)
+
+    if (flag == 2)
     {
-        flag = 1; // 한 칸을 두 번 갔다는 표시
+        res += v[n - 2];
         n = n - 2;
-    }
-    return a < b ? b : a;
-}
-
-int DP(vector<int> &v)
-{
-
-    if (flag == 1)
-    {
-        res += v[n] + v[n - 2];
         flag = 0;
     }
     else
     {
-        cout << v[n] + v[n - 2] << ", " << v[n] + v[n - 2] << '\n';
-        res += Max(v[n] + v[n - 2], v[n] + v[n - 1] + v[n - 2]);
+        // cout << "현재 v:" << n << ":" << v[n] + v[n - 1] << ", " << v[n] + v[n - 2] << '\n';
+        if (v[n] + v[n - 1] > v[n] + v[n - 2])
+        {
+            res += v[n - 1];
+            flag++;
+            n--;
+        }
+        else
+        {
+            res += v[n - 2];
+            n = n - 2;
+        }
     }
 
-    if (n - 2 > 0)
+    if (n - 1 > 0)
         DP(v);
     else
     {
-        return res;
+        return;
     }
 }
 
@@ -47,6 +48,6 @@ int main()
     {
         cin >> v[i]; // 계단 data
     }
-
-    cout << "결과" << DP(v);
+    res = v[n];
+    cout << res;
 }
