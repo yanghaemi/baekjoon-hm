@@ -9,7 +9,7 @@ int flag = 0;
 void DP(vector<int> &v)
 {
 
-    if (flag == 2)
+    if (flag == 1)
     {
         res += v[n - 2];
         n = n - 2;
@@ -28,6 +28,7 @@ void DP(vector<int> &v)
         {
             res += v[n - 2];
             n = n - 2;
+            flag = 0;
         }
     }
 
