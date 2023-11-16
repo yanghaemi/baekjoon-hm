@@ -1,72 +1,62 @@
 #include <iostream>
-#include <stdio.h>
 #include <vector>
 #include <algorithm>
 using namespace std;
 
-bool compare(const pair<int, int> &v1, const pair<int, int> &v2)
+int max(int a, int b, int c, int d)
 {
-    if (v1.second == v2.second)
+    int arr[4];
+    arr[0] = a;
+    arr[1] = b;
+    arr[2] = c;
+    arr[3] = d;
+    int max = -1;
+    for (int i = 0; i < 4; i++)
     {
-        return v1.first < v2.first; // 종료시간이 같으면 시작시간이 이른 쪽을 앞으로
+        if (max < arr[i])
+            max = arr[i];
     }
-    return v1.second < v2.second; // 종료시간이 이른 시간 순대로
+    return max;
 }
 
 int main()
 {
-    int n = 0;
-    int _start = 99999999;
-    int _finish = 0;
-    int cnt = 1;
-    int idx = 0;
+    int n;
     cin >> n;
-
-    if (n == 0)
-    {
-        cout << "0";
-        return 0;
-    }
-
-    vector<pair<int, int>> v(n); // 회의 시작, 종료 시간 입력 받기
-
+    vector<int> v(n);
     for (int i = 0; i < n; i++)
     {
-        cin >> v[i].first >> v[i].second;
+        cin >> v[i];
     }
 
-    int min = 999;
-
-    sort(v.begin(), v.end(), compare); // 정렬
-
-    int flag = 0;
-
-    for (;;)
+    int res = 0;
+    if (n == 1) // 계단 1개
+        cout << v[0];
+    else if (n == 2) // 계단 2개
+        cout << v[0] + v[1];
+    else if (n == 3) // 계단 3개
+        cout << max(v[0] + v[2], v[1] + v[2]);
+    else if (n == 4) // 계단 4개
+        cout << max(v[0] + v[1] + v[3], v[0] + v[2] + v[3]);
+    else // 계단이 5개 이상
     {
-        flag = 0;
 
-        for (int i = idx + 1; i < n; i++)
+        res += max(v[0] + v[1] + v[3], v[1] + v[2] + v[4]);
+        for (int i = 0; i < n;)
         {
-
-            if (v[i].first == v[idx].second)
+            if (i == n - 1) // 계단 1개
+                res += v[i];
+            else if (i == n - 2) // 계단 2개
+                res += v[i] + v[i + 1];
+            else if (i == n - 3) // 계단 3개
+                res += max(v[i] + v[i + 2], v[i + 1] + v[i + 2]);
+            else if (i == n - 4) // 계단 4개
+                res += max(v[i] + v[i + 1] + v[i + 3], v[i] + v[i + 2] + v[i + 3]);
+            else
             {
-                idx = i;
-                cnt++;
-                // cout << "(" << v[idx].first << " " << v[idx].second << ")" << '\n';
-                flag = 1;
-                break;
+                res += max(v[i] + v[i + 1] + v[i + 3], v[i] + v[i + 2] + v[i + 3], v[i + 1] + v[i + 2] + v[i + 4], v[i + 1] + v[i + 3] + v[i + 4]);
+                i += 5;
             }
         }
-        if (flag == 0)
-        {
-            v[idx].second++;
-        }
-        if (v[idx].second >= v[n - 1].second)
-        {
-            break;
-        }
     }
-    cout << cnt;
-
-    return 0;
 }
