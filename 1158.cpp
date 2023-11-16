@@ -1,58 +1,56 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-// ì—°ê²°ë¦¬ìŠ¤íŠ¸ ì‚¬ìš©!
+// ¿¬°á¸®½ºÆ® »ç¿ë!
 typedef struct node
 {
-    int data;          // ìˆ«ìž
-    struct node *next; // ë‹¤ìŒ ë…¸ë“œ í¬ì¸í„°
-} node;                // ë…¸ë“œ
+    int data;          // ¼ýÀÚ
+    struct node *next; // ´ÙÀ½ ³ëµå Æ÷ÀÎÅÍ
+} node;                // ³ëµå
 
-node *head = (node *)malloc(sizeof(node *)); // head ìƒì„±
-int n, k;                                    // ìž…ë ¥ ì–‘ì‹
+node *head = (node *)malloc(sizeof(node)); // head »ý¼º
+int n, k;                                  // ÀÔ·Â ¾ç½Ä
 int Copy_n;
 
 void headnode(int data)
 {
     head->data = data;
-    head->next = (node *)malloc(sizeof(node *));
     head->next = NULL;
     return;
 }
 
 void insert(int data)
 {
-    node *newnode = (node *)malloc(sizeof(node *));
-    newnode->data = data; // newnodeì— ë°ì´í„° ë„£ì–´ì£¼ê¸°
-    newnode->next = (node *)malloc(sizeof(node *));
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode->data = data; // newnode¿¡ µ¥ÀÌÅÍ ³Ö¾îÁÖ±â
     newnode->next = NULL;
 
     node *cur = head;
 
     while (cur->next != NULL)
     {
-        cur = cur->next; // curì„ ë§ˆì§€ë§‰ ë…¸ë“œê¹Œì§€ ì´ë™
+        cur = cur->next; // curÀ» ¸¶Áö¸· ³ëµå±îÁö ÀÌµ¿
     }
     cur->next = newnode;
 
     if (data == n)
     {
-        newnode->next = head; // ì›í˜• ì—°ê²°ë¦¬ìŠ¤íŠ¸
-                              // ë§ˆì§€ë§‰ ë…¸ë“œì˜ nextë¥¼ headë¥¼ ê°€ë¦¬í‚¤ê²Œ í•¨
+        newnode->next = head; // ¿øÇü ¿¬°á¸®½ºÆ®
+                              // ¸¶Áö¸· ³ëµåÀÇ next¸¦ head¸¦ °¡¸®Å°°Ô ÇÔ
     }
 }
 
 void deletenode(int k)
 {
     node *cur = head;
-    if (k == 1) // kê°€ 1ì¼ ë•Œ ë³„ë„ì²˜ë¦¬
+    if (k == 1) // k°¡ 1ÀÏ ¶§ º°µµÃ³¸®
     {
         node *temp = head;
         head = head->next;
         delete temp;
         return;
     }
-    for (int i = 0; i < k - 2, cur->next != NULL; i++)
+    for (int i = 0; i < k - 2; i++)
     {
         cur = cur->next;
     }
@@ -85,12 +83,12 @@ int main()
     int i;
     cin >> n >> k;
     Copy_n = n;
-    headnode(1); // 1ì€ í—¤ë“œë¡œ ì‚½ìž…
+    headnode(1); // 1Àº Çìµå·Î »ðÀÔ
     if (i >= 2)
     {
         for (i = 2; i <= n; i++)
         {
-            insert(i); // 2~nê¹Œì§€ ì—°ê²°ë¦¬ìŠ¤íŠ¸ ì—°ê²°
+            insert(i); // 2~n±îÁö ¿¬°á¸®½ºÆ® ¿¬°á
         }
     }
 
