@@ -1,49 +1,53 @@
 #include <iostream>
+#include <queue>
 #include <vector>
 using namespace std;
+
+queue<int> q;
+vector<int> res(100001);
+vector<int> mp[100001];
+bool check[100001];
+
+void BFS()
+{
+    check[1] = true;
+    q.push(1);
+
+    while (!q.empty())
+    {
+        int parent = q.front();
+        q.pop();
+
+        for (int i = 0; i < mp[parent].size(); i++)
+        {
+            int child = mp[parent][i];
+            if (!check[child])
+            {
+                res[child] = parent;
+                check[child] = true;
+                q.push(child);
+            }
+        }
+    }
+}
 
 int main()
 {
     int n;
     cin >> n;
-    int n1;
-    int n2;
-    vector<int> v(1000000, 0);
-    vector<int> pv(1000000, 0); // parent vector
-    pv[1] = 1;                  // 1은 root
 
-    int max = -1;
+    int a, b = 0;
 
     for (int i = 0; i < n - 1; i++)
     {
-
-        cin >> n1 >> n2;
-        if (pv[n1] == 1)
-        {
-            if (pv[n2] == 0)
-            {
-                v[n2] = n1;
-                pv[n2] = 1;
-                if (max < n2)
-                    max = n2;
-            }
-        }
-        else
-        {
-            v[n1] = n2;
-            pv[n1] = 1;
-            if (max < n1)
-                max = n1;
-        }
+        cin >> a >> b;
+        mp[a].push_back(b);
+        mp[b].push_back(a);
     }
-    int i = 2;
-    while (i <= max)
+
+    BFS();
+    for (int i = 2; i <= n; i++)
     {
-        if (pv[i] != 0)
-        {
-            cout << v[i]
-                 << '\n';
-        }
-        i++;
+        cout << res[i] << '\n';
     }
 }
