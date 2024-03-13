@@ -1,33 +1,35 @@
 #include <iostream>
 #include <vector>
+#include <stack>
+#include <utility>
 using namespace std;
 
 int flag = 0;
+int x_move[2] = {1, 0}; // ➡️⬇️
+int y_move[2] = {0, 1};
 
-bool BFS(int n, vector<vector<int>> &v, int py, int px)
-{
-    int x_move[2] = {1, 0}; // ➡️⬇️
-    int y_move[2] = {0, 1};
+// void BFS(int n, vector<vector<int>> &v, int py, int px)
+// {
 
-    for (int i = 0; i < 2; i++)
-    {
-        int cx = px + (x_move[i] * v[py][px]);
-        int cy = py + (y_move[i] * v[py][px]);
+//     for (int i = 0; i < 2; i++)
+//     {
+//         int cx = px + (x_move[i] * v[py][px]);
+//         int cy = py + (y_move[i] * v[py][px]);
 
-        if (cx >= 0 && cx < n && cy >= 0 && cy < n)
-        {
-            if (v[cy][cx] == -1)
-            {
-                flag = 1;
-                return true;
-            }
+//         if (cx >= 0 && cx < n && cy >= 0 && cy < n)
+//         {
+//             if (v[cy][cx] == -1)
+//             {
+//                 flag = 1;
+//                 return;
+//             }
 
-            BFS(n, v, cy, cx);
-        }
-    }
+//             BFS(n, v, cy, cx);
+//         }
+//     }
 
-    return false;
-}
+//     return;
+// }
 
 int main()
 {
@@ -44,14 +46,42 @@ int main()
         }
     }
 
-    BFS(n, v, 0, 0);
+    stack<pair<int, int>> s;
+    s.push(make_pair(0, 0)); // 첫 번째 좌표 스택에 넣어주기
 
-    if (flag)
+    while (!s.empty())
     {
-        cout << "HaruHaru";
+        int y = s.top().first;
+        int x = s.top().second;
+        s.pop();
+
+        int d = v[y][x];
+
+        for (int i = 0; i < 2; i++)
+        {
+            int cx = x + (x_move[i] * d);
+            int cy = y + (y_move[i] * d);
+
+            if (cx >= 0 && cx < n && cy >= 0 && cy < n)
+            {
+                if (v[cy][cx] == -1)
+                {
+                    cout << "HaruHaru";
+                    return 0;
+                }
+                else if (v[cy][cx] == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    s.push(make_pair(cy, cx));
+                }
+            }
+        }
     }
-    else
-        cout << "Hing";
+
+    cout << "Hing";
 
     return 0;
 }
