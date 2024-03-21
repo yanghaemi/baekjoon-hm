@@ -1,25 +1,69 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 using namespace std;
+// ï¿½Ìºï¿½Å½ï¿½ï¿½ O(log N)
+int cnt = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ®
+
+int BS(vector<int> v, int k, int n, int sidx, int lidx)
+{
+    int mididx = (sidx + lidx) / 2;
+    int num = v[mididx];
+    int res = 0;
+    cnt = 0;
+    int i = 0;
+    for (i = 0; i < k; i++)
+    {
+        cnt += v[i] / num;
+    }
+    if (cnt < n)
+    {
+    }
+    else if (cnt >= n)
+    {
+    }
+}
+
+int fromn1ton2(vector<int> v, int k, int n1, int n2)
+{
+    int mid = (n1 + n2) / 2;
+    cnt = 0;
+
+    if (n1 == n2)
+    {
+        return n1;
+    }
+
+    for (int i = 0; i < k; i++)
+    {
+        cnt += v[i] / mid;
+    }
+    if (cnt < k)
+    {
+        fromn1ton2(v, k, n1, mid);
+    }
+    else if (cnt >= k)
+    {
+        fromn1ton2(v, k, mid, n2);
+    }
+
+    return 0;
+}
 
 int main()
 {
-    int k; // ÀÌ¹Ì °¡Áö°í ÀÖ´Â ·£¼±ÀÇ °³¼ö
-    int n; // ÇÊ¿äÇÑ ·£¼±ÀÇ °³¼ö
+    int k; // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    int n; // ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     cin >> k >> n;
 
-    vector<int> v(k); // ·£¼± ±æÀÌ
-
-    int sum = 0; // ¸ðµç ·£¼± ´õÇÑ ±æÀÌ
+    vector<int> v(k); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     for (int i = 0; i < k; i++)
     {
         cin >> v[i];
-        sum += v[i];
     }
+    sort(v.begin(), v.end()); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    int div = sum / n;
-    string div_s = to_string(div);
-    v.size()
+    cout << BS(v, k, n, 0, v.size() - 1);
 }
