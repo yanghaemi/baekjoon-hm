@@ -53,7 +53,7 @@ public class Solution{
 
             int lca = getLCA(a, b);
             
-            System.out.println("#"+tc+" "+lca+" "+getSize(lca));
+            System.out.println("#"+tc+" "+lca+" "+getSize(lca, V));
         }
     }
 
@@ -80,12 +80,11 @@ public class Solution{
         return parent[0][a];
     }
     
-    static int getSize(int idx) {
+    static int getSize(int idx, int size) {
         Queue<Integer> q = new ArrayDeque<>();
-        boolean visited[] = new boolean[10000];
-        visited[idx] = true;
+        // boolean visited[] = new boolean[size+1];
+        // visited[idx] = true;
         q.offer(idx);
-        depth[idx] = 0;
         
         int cnt = 0;
         
@@ -93,9 +92,9 @@ public class Solution{
             int cur = q.poll();
             cnt ++;
             for(int next : list[cur]) {
-                if(visited[next]) continue;
+                // if(visited[next]) continue;
                 
-                visited[next] = true;
+                // visited[next] = true;
                 q.offer(next);
             } 
         }
